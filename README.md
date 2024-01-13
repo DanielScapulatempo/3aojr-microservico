@@ -7,8 +7,22 @@
 
 That's a smaller and efficient password validator.
 
-  
-  
+ 
+## What the Application Does
+- Validates passwords from an API;
+- The application is launched via the comand line and accepts parameters if you want to change the API port;
+- All validations are separate Regex so that they are easy to understand;
+- Each validation has its own dedicated unit test.
+
+## Explanation About Architecture and Design Patterns
+About the Semaphore and Channels pattern in Golang:
+
+- Validations are separete and done asynchronously;
+- A channel is a way of sharing information between threads;
+- In this case, I need to tell the application which validations have already passed;
+- Once all the validations have passed, that's where the Semaphore pattern is applied;
+- It is the only way to tell the application that asynchronously everything has been done;
+- The validations are async and the request is blocking, because at the first failure of whatever validation, the application cuts off the request.
 
 ## About the Project
 
@@ -67,8 +81,6 @@ And, the response will seems like that:
 
 ## License
 Distributed under the Apache 2.0. See `LICENSE` for more information.
-
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
